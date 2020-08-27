@@ -1,0 +1,40 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+ 
+      
+servlet:
+  multipart:
+    enabled: true
+    max-file-size: 2MB
+
+
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/areuareu?serverTimezone=Asia/Seoul
+    username: cos
+    password: cos1234
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2MB
+  devtools:
+    livereload:
+      enabled: true
+  freemarker:
+    cache: false 
+      
+http:
+ encoding:
+   charset: UTF-8
+   enabled: true
+   force: true
+
+
+
+file:
+  path: C:/src/Springwork/spring-test5/src/main/resources/static/images/

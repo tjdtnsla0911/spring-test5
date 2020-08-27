@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aruerue.shop.repository.UserRepository">
+
+	<insert id="save">
+		INSERT INTO user(username, password, email, name, gender, phone, address,
+		detail_address, birthday, total_amount, role, cancel, profile,
+		createDate)
+		VALUES(#{username},#{password},#{email}, #{name}, #{gender}, #{phone}, #{address}, #{detail_address},
+		#{birthday}, #{total_amount}, #{role}, #{cancel}, #{profile}, now())
+	</insert>
+
+	<insert id="googleSave">
+		INSERT INTO user(email,password,provider,providerId,role,username)
+		VALUES(#{email},#{password},#{provider},#{providerId},#{role},#{username})
+	</insert>
+
+	   <insert id="saveGoogle">
+  INSERT INTO user(email,password,provider,providerId,role,username)
+  VALUES(#{email},#{password},#{provider},#{providerId},#{role},#{username})
+</insert>
+
+
+	<select id="login" resultType="com.aruerue.shop.model.user.User">
+		SELECT id, username, email, name, gender, phone, address, detail_address,
+		birthday, total_amount, role, cancel, profile, createDate FROM user
+		WHERE username = #{username} AND password = #{password}
+	</select>
+
+	<select id="findByUsername"
+		resultType="com.aruerue.shop.model.user.User">
+		SELECT id, username, email, name, gender, phone, address, detail_address,
+		birthday, total_amount, role, cancel, profile, createDate
+		FROM user
+		WHERE username = #{username}
+	</select>
+
+	<!-- -->
+	<select id="fetchUserByID"
+		resultType="com.aruerue.shop.model.user.User">
+		SELECT * FROM user
+		where id =#{id}
+	</select>
+
+
+	<update id="updateUser"
+		parameterType="com.aruerue.shop.model.user.User">
+		UPDATE user SET password = #{password} where id=#{id}
+	</update>
+
+	<delete id="deleteUser" parameterType="int">
+		DELETE FROM user
+		WHERE id=#{id}
+	</delete>
+
+
+	<select id="findAll"
+		resultType="com.aruerue.shop.model.user.User">
+		SELECT * FROM user
+		ORDER BY id
+	</select>
+</mapper>
