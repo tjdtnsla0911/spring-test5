@@ -6,110 +6,88 @@
 <title>Insert title here</title>
 <style>
 </style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 </head>
 
 
-<button onclick="replay()">새로고침</button><button onclick="related()">관련상품</button><button onclick="back()">전체상품</button>
+<button onclick="replay()">새로고침</button>
+<button onclick="related()">관련상품</button>
+<button onclick="back()">전체상품</button>
 
 <script>
-function back(){
-	location.href="/list";
-}
-function related(){
-location.href="/relatedProducts";
-}
-function replay(){
-	location.href="/axios";
-}
+	function back() {
+		location.href = "/list";
+	}
+	function related() {
+		location.href = "/relatedProducts";
+	}
+	function replay() {
+		location.href = "/axios";
+	}
 </script>
 
 <body>
-<center>
-		<h1>관리자 페이지입니다.</h1>
+
+	<h1>관리자 페이지입니다.</h1>
 	<form method="post" action="/crud" enctype="multipart/form-data">
 
-		title: <input type="text" id="title" name="title" /><br />
+		title: <input type="text" id="title" name="title" /><br /> price :<input type="text" id="price" name="price" /><br /> disc : <input type="text"
+			id="disc" name="disc" /><br /> sale에 올린다<input type="radio" id="radioSale" name="radioSale" value="true" checked> sale에 안올린다<input
+			type="radio" id="radioSale" name="radioSale" value="false"> <br /> discounted가격 : <input type="text" id=discounted name=discounted
+			class="radioSale" /><br /> 광고에 올린다 :<input type="radio" id="radioAd" name="radioAd" value=true checked> 광고에 안올린다 :<input type="radio"
+			id="radioAd" name="radioAd" value=false checked><br /> content: <input type="text" id="content" name="content" /><br /> 세트상품이다 :<input
+			type="radio" id="radioParentTypeId" name="radioParentTypeId" value="2" checked> 개별상품이다 : <input type="radio" id="radioParentTypeId"
+			name="radioParentTypeId" value="1" checked><br /> best로 올린다:<input type="radio" id="radioBest" name="radioBest" value=true checked>
 
-		 thumb :<input
-			type="text" id="thumb" name="thumb" required/><br />
+		best로 안올린다 : <input type="radio" id="radioBest" name="radioBest" value=false checked><br /> New로 올린다 :<input type="radio" id="radioNew"
+			name="radioNew" value=true checked> New로 안올린다 : <input type="radio" id="radioNew" name="radioNew" value=false checked><br />
 
-			 price :<input
-			type="text" id="price" name="price" /><br />
-
-			disc : <input
-			type="text" id="disc" name="disc" /><br />
-
-			sale에 올린다<input
-			type="radio" id="radioSale" name="radioSale" value="true" checked>
-
-		sale에 안올린다<input type="radio" id="radioSale" name="radioSale"
-			value="false"> <br />
-
-			discounted가격 : <input type="text"
-			id=discounted name=discounted class="radioSale" /><br />
-
-			 광고에 올린다 :<input
-			type="radio" id="radioAd" name="radioAd" value=true checked>
-
-		광고에 안올린다 :<input type="radio" id="radioAd" name="radioAd" value=false
-			checked><br /> content: <input type="text" id="content"
-			name="content" /><br />
-
-			 세트상품이다 :<input type="radio" id="radioParentTypeId" name="radioParentTypeId" value="2" checked>
-
-		개별상품이다 : <input type="radio" id="radioParentTypeId"
-			name="radioParentTypeId" value="1" checked><br />
-
-			 best로 올린다:<input type="radio" id="radioBest" name="radioBest" value=true
-			checked>
-
-			best로 안올린다 : <input type="radio" id="radioBest"
-			name="radioBest" value=false checked><br />
-
-			 New로 올린다 :<input
-			type="radio" id="radioNew" name="radioNew" value=true checked>
-
-		New로 안올린다 : <input type="radio" id="radioNew" name="radioNew"
-			value=false checked><br />
-
-			bgImg : <input type="file"
-			id="file" name="file" /><br />
-
+	<br /> thumb :<input type="file" id="file2" name="file2" required /><br />
 		<div class="img_wrap">
 
-			 <img id="test" src="" style="height: 200px" width="200px" />
+			<img id="test2" src="" style="height: 200px" width="200px" />
 		</div>
+		<button type="button" onclick="javascript:encodeImageFileAsURLs()">썸네일 사진미리보기</button>
+		<br />
+			 bgImg
+		: <input type="file" id="file" name="file" /><br />
+		<div class="img_wrap">
+			<img id="test" src="" style="height: 200px" width="200px" />
+		</div>
+		<button type="button" onclick="javascript:encodeImageFileAsURLss()">bgImg 사진미리보기</button>
+
 		<br />
 
+		<br /> 관련상품(부모): <select id="parentProductId" name="parentProductId">
+			<option value="0">관련상품없음</option>
+			<option value="1">관련상품있음</option>
 
 
-	<button  type="button" onclick="javascript:encodeImageFileAsURLs()">사진미리보기</button>
-	<br />
-	관련상품(부모): <select id="parentProductId" name="parentProductId">
-	<option value="0">관련상품없음</option>
-	<option value="1">관련상품있음</option>
+		</select> 관련상품(자식) : <select id="relateProductId" name="relateProductId">
+			<option value="0">관련상품없음</option> {{#list}}
+			<option value="{{id}}">{{title}}</option> {{/list}}
 
-
-			</select>
-			관련상품(자식) : <select id="relateProductId" name="relateProductId"> {{#list}}
-				<option value="{{id}}">{{title}}</option> {{/list}}
-			    <option value="0">관련상품없음</option>
-			</select>
-
-	<br />
-	<br />
-	<br />
-	<br />
-	<input type="submit" value="전송합니다"></button>
+		</select> <br /> <br /> <br /> <br /> <input type="submit" value="전송합니다">
+		</button>
 	</form>
 
 	<script>
 		function encodeImageFileAsURLs() {
+			var file = $('#file2').prop('files')[0];
+			var reader = new FileReader();
+			reader.onloadend = function() {
+				console.log('RESULT', reader.result);
+				$('#fuck').attr('value', reader.result);
+				$('#test2').attr('src', reader.result);
+			};
+			reader.readAsDataURL(file);
+		}
+	</script>
+
+	<script>
+		function encodeImageFileAsURLss() {
 			var file = $('#file').prop('files')[0];
 			var reader = new FileReader();
 			reader.onloadend = function() {
@@ -120,9 +98,8 @@ function replay(){
 			reader.readAsDataURL(file);
 		}
 	</script>
-
 	<script src="/js/addmin.js"></script>
-</center>
+
 </body>
 
 </html>

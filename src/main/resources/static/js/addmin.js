@@ -45,14 +45,17 @@ $(document).ready(function(){
 
 let index = {
 		init: function(){
-			$("#btn-save").on("click", ()=>{ // function(){} , ()=>{} this를 바인딩하기 위해서!!
+			$("#btn-save").on("click", ()=>{ // function(){} , ()=>{} this를
+												// 바인딩하기 위해서!!
 				this.save();
 			});
-			$(".btn-update").on("click", (e)=>{ // function(){} , ()=>{} this를 바인딩하기 위해서!!
+			$(".btn-update").on("click", (e)=>{ // function(){} , ()=>{} this를
+												// 바인딩하기 위해서!!
 
 				this.update(e);
 			});
-			$(".btn-delete").on("click", (e)=>{ // function(){} , ()=>{} this를 바인딩하기 위해서!!
+			$(".btn-delete").on("click", (e)=>{ // function(){} , ()=>{} this를
+												// 바인딩하기 위해서!!
 				this.userDelete(e);
 			});
 			$("#start").on("click",()=>{
@@ -64,7 +67,7 @@ let index = {
 		save: function(){
 
 
-			//alert('user의 save함수 호출됨');
+			// alert('user의 save함수 호출됨');
 			let data = {
 					parentProductId:$("#parentProductId").val(),
 					relateProductId:$("#relateProductId").val(),
@@ -97,7 +100,7 @@ let index = {
 			console.log(data);
 
 
-			//console.log(data);
+			// console.log(data);
 
 			// ajax호출시 default가 비동기 호출
 			// ajax 통신을 이용해서 3개의 데이터를 json으로 변경하여 insert 요청!!
@@ -107,13 +110,14 @@ let index = {
 				url: "/crud",
 				data: JSON.stringify(data), // http body데이터
 				contentType: "application/json; charset=utf-8",
-			       //enctype: 'multipart/form-data',// body데이터가 어떤 타입인지(MIME)
-				dataType: "text" // 요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 문자열 (생긴게 json이라면) => javascript오브젝트로 변경
+			       // enctype: 'multipart/form-data',// body데이터가 어떤 타입인지(MIME)
+				dataType: "text" // 요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 문자열 (생긴게
+									// json이라면) => javascript오브젝트로 변경
 			}).done(function(resp){
 				console.log(resp);
 				alert('성공');
 //
-					//location.href = "/list";
+					// location.href = "/list";
 
 
 			}).fail(function(error){
@@ -131,45 +135,44 @@ let index = {
 					id: temp
 			};
 			console.log('data2 = ',data2);
-			//bt-update-{{id}}
-			let data = {
-					changebgImg : $("#file"+data2.id).val().substr(12),
-				    id : $("#id"+data2.id).val(),
-					title: $("#modaltitle"+data2.id).val(),
-					thumb: $("#modalthumb"+data2.id).val(),
-					price: $("#modalprice"+data2.id).val(),
-					disc: $("#modaldisc"+data2.id).val(),
-					discounted: $("#modaldiscounted"+data2.id).val(),
-					content: $("#modalcontent"+data2.id).val(),
-					//bgImg: $("#modalbgImg"+data2.id).val(),
-//					radioSale : $('input:radio[name="radioSale"]:checked').val(),
-//					radioAd : $('input:radio[name="radioAd"]:checked').val(),
-//					radioParentTypeId : $('input:radio[name="radioParentTypeId"]:checked').val(),
-//					radioBest : $('input:radio[name="radioBest"]:checked').val(),
-//					radioNew : $('input:radio[name="radioNew"]:checked').val(),
-			};
-			console.log(data);
 
+			var formData = new FormData();
+			formData.append('id', $("#id"+data2.id).val());
+			formData.append('title', $("#modaltitle"+data2.id).val());
+			formData.append('thumb', $("#modalthumb"+data2.id).val());
+			formData.append('price',  $("#modalprice"+data2.id).val());
+			formData.append('disc', $("#modaldisc"+data2.id).val());
+			formData.append('discounted', $("#modaldiscounted"+data2.id).val());
+			formData.append('content', $("#modalcontent"+data2.id).val());
+			formData.append('bgImg', $("#fuck"+data2.id).val());
+			formData.append('file', $("#file"+data2.id)[0].files[0]);
+			formData.append('file2', $("#file2"+data2.id)[0].files[0]);
 
-//			let temp = (e.target.id).replace("bt-update-","");
+if()
 //
-//			let data = {
-//					id: temp
+//if($("#file"+data2.id)[0].files[0]==undefined){
 //
-//			};
+//}
+console.log('file1 = '+formData.thumb);
+console.log('file1 = '+formData.bgImg);
 
+
+//console.log('file = '+$("#file2"+data2.id)[0].files[0]);
+//console.log('formData = '+$("#fuck"+data2.id).val());
 			$.ajax({
 			type: "PUT",
 			url: "/change/"+data2.id,
 			contentType: 'multipart/form-data',
-			data: data, // http body데이터
+			data: formData, // http body데이터
 			 processData: false,
 			 contentType: false,
-		//ssunsband.tistory.com/entry/Jquery-Ajax를-이용한-파일-업로드FormData-사용 [ssunsband] // 요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 문자열 (생긴게 json이라면) => javascript오브젝트로 변경
+		// ssunsband.tistory.com/entry/Jquery-Ajax를-이용한-파일-업로드FormData-사용
+		// [ssunsband] // 요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 문자열 (생긴게 json이라면) =>
+		// javascript오브젝트로 변경
 			}).done(function(resp){
 				alert("물품변경이 완료되었습니다.");
-				//console.log(resp);
-				//location.href = "/list";
+				// console.log(resp);
+				// location.href = "/list";
 			}).fail(function(error){
 				alert(JSON.stringify(error));
 			});
@@ -181,7 +184,7 @@ let index = {
 		start: function(){
 
 
-			//alert('user의 save함수 호출됨');
+			// alert('user의 save함수 호출됨');
 			let data = {
 					changebgImg : $("#imgs").val(),
 
@@ -199,7 +202,7 @@ let index = {
 				console.log(resp);
 				alert('성공');
 //
-					//location.href = "/list";
+					// location.href = "/list";
 
 
 			}).fail(function(error){
@@ -212,9 +215,9 @@ let index = {
 
 
 
-		//delete 하는곳
+		// delete 하는곳
 		userDelete: function(e){
-			//alert('user의 save함수 호출됨');
+			// alert('user의 save함수 호출됨');
 			let temp = (e.target.id).replace("bt-delete-","");
 			let data = {
 					id: temp
@@ -224,8 +227,10 @@ let index = {
 				type: "delete",
 				url: "/listDelete/"+data.id,
 				data: JSON.stringify(data), // http body데이터
-				contentType: "application/json; charset=utf-8",// body데이터가 어떤 타입인지(MIME)
-				dataType: "text" // 요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 문자열 (생긴게 json이라면) => javascript오브젝트로 변경
+				contentType: "application/json; charset=utf-8",// body데이터가 어떤
+																// 타입인지(MIME)
+				dataType: "text" // 요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 문자열 (생긴게
+									// json이라면) => javascript오브젝트로 변경
 			}).done(function(resp){
 				alert("회원삭제가 완료되었습니다.");
 				console.log(resp);
@@ -239,7 +244,7 @@ let index = {
 }
 
 function encodeImageFileAsURL(e) {
-	var file = $('#input_img2'+e).prop('files')[0];
+	var file = $('#file'+e).prop('files')[0];
 	console.log('file = ',file);
 
 console.log('e = ',e)
@@ -249,6 +254,22 @@ console.log('e = ',e)
 		console.log('RESULT', reader.result);
 		$('#fuck'+e).attr('value', reader.result);
 		$('#test'+e).attr('src', reader.result);
+	};
+
+	reader.readAsDataURL(file);
+}
+
+function encodeImageFileAsURL2(e) {
+	var file = $('#file2'+e).prop('files')[0];
+	console.log('file = ',file);
+
+console.log('e = ',e)
+
+	var reader = new FileReader();
+	reader.onloadend = function() {
+		console.log('RESULT', reader.result);
+		$('#fuck'+e).attr('value', reader.result);
+		$('#test2'+e).attr('src', reader.result);
 	};
 
 	reader.readAsDataURL(file);

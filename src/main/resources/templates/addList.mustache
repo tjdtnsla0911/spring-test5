@@ -48,7 +48,7 @@ function replay(){
 				<tr>
 					<th>id</th>
 					<th>title</th>
-					<th>thumb</th>
+
 					<th>price</th>
 					<th>disc</th>
 					<th>ad</th>
@@ -56,6 +56,7 @@ function replay(){
 					<th>content</th>
 					<th>categoryId</th>
 					<th>bgImg</th>
+					<th>thumb</th>
 					<th>기능</th>
 				</tr>
 			</thead>
@@ -66,15 +67,18 @@ function replay(){
 						class="userid" name="userid" value="{{id}}" />
 					</td>
 					<td>{{title}}</td>
-					<td>{{thumb}}</td>
 					<td>{{price}}</td>
 					<td>{{disc}}</td>
 					<td>{{ad}}</td>
 					<td>{{discounted}}</td>
 					<td>{{content}}</td>
 					<td>{{categoryId}}</td>
+
 					<td><img src="{{bgImg}}" alt="없다" style="height: 100px"
-						width="100px"></td>
+						width="100px"/></td>
+							<td><img src="{{thumb}}" alt="없다" style="height: 100px"
+						width="100px"/></td>
+
 					<td>
 						<button class="btn-delete" id="bt-delete-{{id}}"
 							style="WIDTH: 60pt; HEIGHT: 20pt">삭제하기</button> <br />
@@ -116,21 +120,33 @@ function replay(){
 											id="modalcategoryId{{id}}" class="userid" name="userid"
 											value="{{categoryId}}" /> <br /> <br /> <input
 											type="hidden" id="modalbgImg{{id}}" class="userid"
-											name="userid" value="{{bgImg}}" /> <br /> <br />
-											 바꿀사진 : <input
-											type="file" id="file{{id}}" name="file" multiple/><br />
+											name="userid" value="{{bgImg}}" /> <br />
+											 bgimg : <input
+											type="file" id="file{{id}}" name="file"/><br />
 										<div class="img_wrap">
 											<img id="test{{id}}" src="{{bgImg}}" style="height: 200px"
 												width="200px" />
 										</div>
 										<br /> <input type="hidden" id="fuck{{id}}" value="null" />
-										<button onclick="javascript:encodeImageFileAsURL({{id}})"
-											id="bt-update-{{id}}">바뀐사진보기(바꾸기전 꼭눌러야합니다)</button>
+										<button  type="button"  onclick="javascript:encodeImageFileAsURL({{id}})"
+											id="bt-update-{{id}}">bgimg 바뀐사진보기</button>
+										<br/>
+
+												 thumb : <input
+											type="file" id="file2{{id}}" name="file2"/><br />
+										<div class="img_wrap">
+											<img id="test2{{id}}" src="{{thumb}}" style="height: 200px"
+												width="200px" />
+
+														</div>
+										<br /> <input type="hidden" id="fuck{{id}}" value="null" />
+										<button  type="button"  onclick="javascript:encodeImageFileAsURL2({{id}})"
+											id="bt-update-{{id}}">thumb 바뀐사진보기</button>
 
 									</div>
 									<div class="modal-footer">
-										<button class="btn-update" id="bt-update-{{id}}"
-											style="WIDTH: 60pt; HEIGHT: 20pt">수정하기</button>
+										<input class="btn-update" type="button" id="bt-update-{{id}}"
+											style="WIDTH: 60pt; HEIGHT: 20pt" value="수정하기"/>
 										<button type="button" class="btn btn-default"
 											data-dismiss="modal">닫기</button>
 									</div>

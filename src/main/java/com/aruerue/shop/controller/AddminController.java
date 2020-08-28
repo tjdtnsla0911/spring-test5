@@ -90,10 +90,23 @@ public class AddminController {
 		System.out.println(http+lists.get(i).getBgImg());
 		String http2 = http+lists.get(i).getBgImg();
 		lists.get(i).setBgImg(http2);
-		System.out.println("lists = "+lists.get(i).getBgImg());
+		System.out.println("bgㅑㅡㅎ = "+lists.get(i).getBgImg());
 		//System.out.println(lists.get(i).setBgImg(http+lists.get(i).getBgImg()));
-
 		}
+
+		for( int i=0; i<=lists.size()-1;i++) {
+
+			System.out.println(http+lists.get(i).getThumb());
+
+			String http2 = http+lists.get(i).getThumb();
+
+			lists.get(i).setThumb(http2);
+
+			System.out.println("썸네일 = "+lists.get(i).getThumb());
+
+			//System.out.println(lists.get(i).setBgImg(http+lists.get(i).getBgImg()));
+
+			}
 
 //http://localhost:8080/images/cef5c43d-3781-448e-b7d9-8462d566fcfa_kocs.jpg
 		System.out.println("lists의 결과  = "+lists);
@@ -112,6 +125,7 @@ public class AddminController {
 		System.out.println("axios 탓다");
 		return "index";
 	}
+	//여긴무시해도됩니다 테스트용임
 	@PostMapping("/instar")
 	public String insert(@RequestParam("file") MultipartFile file) throws IOException {
 		System.out.println("오긴옴");
@@ -133,25 +147,35 @@ public class AddminController {
 	}
 	//여기가 물풍 적은곳 받아서 db에 올리는곳
 	@PostMapping("/crud")
-	public  String crud(@RequestParam("file") MultipartFile file,@ModelAttribute AddminDto addminDto) throws IOException {
+	public  String crud(@RequestParam("file") MultipartFile file,@RequestParam("file2") MultipartFile file2,@ModelAttribute AddminDto addminDto) throws IOException {
+
+
 		System.out.println("일단 crud에 왔습니다");
+		System.out.println("file1의 이름 = "+file.getOriginalFilename());
+		System.out.println("file2의 이름 = "+file2.getOriginalFilename());
 		UUID uuid = UUID.randomUUID();
+		UUID uuid2 = UUID.randomUUID();
 		System.out.println("111111111111111");
-		String uuidFilename = uuid + "_"+file.getOriginalFilename();
-		System.out.println("22222222222222222  ="+uuidFilename);
-		Path filePath = Paths.get(fileRealPath + uuidFilename);
+		String thumb =  uuid + "_"+file2.getOriginalFilename();
+		String bgimg = uuid2 + "_"+file.getOriginalFilename();
+
+	System.out.println("썸네일 = "+thumb);
+	System.out.println("bgimg = "+bgimg);
+		Path filePath = Paths.get(fileRealPath + thumb);
+		Path filePath2 = Paths.get(fileRealPath + bgimg);
 		System.out.println("filePath 원조 ="+filePath);
 		System.out.println("filePath = "+fileRealPath);
 		System.out.println("파일.겟바이트는 뭔가 ? = "+file.getBytes());
 		Files.write(filePath, file.getBytes());
+		Files.write(filePath2, file2.getBytes());
 
-		String realuuidFilename = "/images/"+uuidFilename;
-		addminDto.setBgImg(realuuidFilename);
+ 	String realthumb = "/images/"+thumb;
+ 	String realbgimg = "/images/"+bgimg;
+ 		addminDto.setThumb(realthumb);
+		addminDto.setBgImg(realbgimg);
 		System.out.println("바뀐 bgImg = "+addminDto.getBgImg());
-		System.out.println("filePath = "+filePath);
-		System.out.println("파일패쓰 = "+filePath);
-		System.out.println("33333333333333333333333");
-		System.out.println("crud에 쳐왔다");
+
+
 		System.out.println("처음온 addminDto.getParentProductId()? = " + addminDto.getParentProductId());
 		if (addminDto.getRadioAd().equals("true")) {
 			addminDto.setRadioAd2(true);
@@ -238,26 +262,44 @@ public class AddminController {
 	// 등록물품
 
 	@PutMapping("/change/{id}")
-	public @ResponseBody String updata(@RequestParam("changebgImg") MultipartFile file, @PathVariable int id, @ModelAttribute Product product) throws IOException {
+	public @ResponseBody String updata(
+			MultipartFile file, MultipartFile file2,
+			@ModelAttribute Product product
+			) throws IOException {
 		System.out.println("좀나와라 ㅅㅂ거");
+		if(file2.getOriginalFilename()==null||file2.getOriginalFilename()=="") {
+			
+			
+		}
+		System.out.println("썸네일 사진 = "+file2.getOriginalFilename());
+		System.out.println("bgimg : "+file.getOriginalFilename());
+		System.out.println("프로덕트 = "+product);
 
 		System.out.println("가져온 체인지값 = " + product);
 		UUID uuid = UUID.randomUUID();
-		String uuidFilename = uuid + "_"+product.getChangebgImg();
-		Path filepaPath = Paths.get(fileRealPath + uuidFilename);
-		System.out.println("filepaPath = "+ filepaPath);
-		byte[] bytes = product.getChangebgImg().getBytes();
-		System.out.println("bytes ="+bytes);
-		Files.write(filepaPath,bytes);
-		System.out.println("uuidFilename = "+uuidFilename);
+		UUID uuid2 = UUID.randomUUID();
+
+		String uuidBgImg = uuid + "_"+file.getOriginalFilename();
+		String uuidSubmb = uuid + "_"+file2.getOriginalFilename();
+		Path fileBgImg = Paths.get(fileRealPath + uuidBgImg);
+		Path fileThumb = Paths.get(fileRealPath + uuidSubmb);
+
+
+
+		Files.write(fileBgImg,file.getBytes());
+		Files.write(fileThumb,file2.getBytes());
+
 		System.out.println("여기나오면 희망좀있음");
-		String realuuidFilename = "/images/"+uuidFilename;
-			System.out.println("들어갈 realuudidFilename은 ? = "+realuuidFilename);
-		if (!product.getChangebgImg().equals("null")) {
+		String realBgImg = "/images/"+uuidBgImg;
+		String realSubmb = "/images/"+uuidSubmb;
+
+
+	//	if (product.getChangebgImg().equals("null")||product.getChangebgImg()==null) {
 			System.out.println("if문에 왔어요");
-			System.out.println("if문 ㅅㅂ = " + product.getChangebgImg());
-			product.setBgImg(realuuidFilename);
-		}
+	
+			product.setBgImg(realBgImg);
+			product.setThumb(realSubmb);
+		//}
 
 		System.out.println("체인지에왔음");
 
