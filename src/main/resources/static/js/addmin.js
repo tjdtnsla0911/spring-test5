@@ -133,7 +133,7 @@ let index = {
 			console.log('data2 = ',data2);
 			//bt-update-{{id}}
 			let data = {
-					changebgImg : $("#fuck"+data2.id).val(),
+					changebgImg : $("#file"+data2.id).val().substr(12),
 				    id : $("#id"+data2.id).val(),
 					title: $("#modaltitle"+data2.id).val(),
 					thumb: $("#modalthumb"+data2.id).val(),
@@ -141,7 +141,7 @@ let index = {
 					disc: $("#modaldisc"+data2.id).val(),
 					discounted: $("#modaldiscounted"+data2.id).val(),
 					content: $("#modalcontent"+data2.id).val(),
-					bgImg: $("#modalbgImg"+data2.id).val(),
+					//bgImg: $("#modalbgImg"+data2.id).val(),
 //					radioSale : $('input:radio[name="radioSale"]:checked').val(),
 //					radioAd : $('input:radio[name="radioAd"]:checked').val(),
 //					radioParentTypeId : $('input:radio[name="radioParentTypeId"]:checked').val(),
@@ -159,11 +159,13 @@ let index = {
 //			};
 
 			$.ajax({
-				type: "PUT",
-				url: "/change/"+data2.id,
-				data: JSON.stringify(data), // http body데이터
-				contentType: "application/json; charset=utf-8",// body데이터가 어떤 타입인지(MIME)
-				dataType: "text" // 요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 문자열 (생긴게 json이라면) => javascript오브젝트로 변경
+			type: "PUT",
+			url: "/change/"+data2.id,
+			contentType: 'multipart/form-data',
+			data: data, // http body데이터
+			 processData: false,
+			 contentType: false,
+		//ssunsband.tistory.com/entry/Jquery-Ajax를-이용한-파일-업로드FormData-사용 [ssunsband] // 요청을 서버로해서 응답이 왔을 때 기본적으로 모든 것이 문자열 (생긴게 json이라면) => javascript오브젝트로 변경
 			}).done(function(resp){
 				alert("물품변경이 완료되었습니다.");
 				//console.log(resp);

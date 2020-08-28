@@ -81,7 +81,7 @@ function replay(){
 						<button type="button" data-toggle="modal"
 							data-target="#myModal{{id}}" style="WIDTH: 60pt; HEIGHT: 20pt">수정하기</button>
 <br/>
-
+	<form >
 						<div class="modal fade" id="myModal{{id}}" tabindex="-1"
 							role="dialog" aria-labelledby="myModalLabel">
 							<div class="modal-dialog" role="document">
@@ -94,6 +94,7 @@ function replay(){
 										<h4 class="modal-title" id="myModalLabel">회원 정보 수정을 합시다~</h4>
 									</div>
 									<div class="modal-body">
+
 										<input type="hidden" id="id{{id}}" class="userid"
 											name="userid" value="{{id}}" /> <br /> <br /> title :<input
 											type="text" id="modaltitle{{id}}" class="modaltitle"
@@ -117,7 +118,7 @@ function replay(){
 											type="hidden" id="modalbgImg{{id}}" class="userid"
 											name="userid" value="{{bgImg}}" /> <br /> <br />
 											 바꿀사진 : <input
-											type="file" id="input_img2{{id}}" name="img" /><br />
+											type="file" id="file{{id}}" name="file" multiple/><br />
 										<div class="img_wrap">
 											<img id="test{{id}}" src="{{bgImg}}" style="height: 200px"
 												width="200px" />
@@ -136,6 +137,7 @@ function replay(){
 								</div>
 							</div>
 						</div>
+						</form>
 
 
 

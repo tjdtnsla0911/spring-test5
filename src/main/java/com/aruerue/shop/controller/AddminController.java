@@ -138,9 +138,11 @@ public class AddminController {
 		UUID uuid = UUID.randomUUID();
 		System.out.println("111111111111111");
 		String uuidFilename = uuid + "_"+file.getOriginalFilename();
-		System.out.println("22222222222222222");
+		System.out.println("22222222222222222  ="+uuidFilename);
 		Path filePath = Paths.get(fileRealPath + uuidFilename);
+		System.out.println("filePath 원조 ="+filePath);
 		System.out.println("filePath = "+fileRealPath);
+		System.out.println("파일.겟바이트는 뭔가 ? = "+file.getBytes());
 		Files.write(filePath, file.getBytes());
 
 		String realuuidFilename = "/images/"+uuidFilename;
@@ -234,18 +236,33 @@ public class AddminController {
 	}
 
 	// 등록물품
+
 	@PutMapping("/change/{id}")
-	public @ResponseBody String updata(@PathVariable int id, @RequestBody Product product) {
+	public @ResponseBody String updata(@RequestParam("changebgImg") MultipartFile file, @PathVariable int id, @ModelAttribute Product product) throws IOException {
+		System.out.println("좀나와라 ㅅㅂ거");
+
 		System.out.println("가져온 체인지값 = " + product);
-		System.out.println("sdfsdf = " + product.getChangebgImg());
+		UUID uuid = UUID.randomUUID();
+		String uuidFilename = uuid + "_"+product.getChangebgImg();
+		Path filepaPath = Paths.get(fileRealPath + uuidFilename);
+		System.out.println("filepaPath = "+ filepaPath);
+		byte[] bytes = product.getChangebgImg().getBytes();
+		System.out.println("bytes ="+bytes);
+		Files.write(filepaPath,bytes);
+		System.out.println("uuidFilename = "+uuidFilename);
+		System.out.println("여기나오면 희망좀있음");
+		String realuuidFilename = "/images/"+uuidFilename;
+			System.out.println("들어갈 realuudidFilename은 ? = "+realuuidFilename);
 		if (!product.getChangebgImg().equals("null")) {
 			System.out.println("if문에 왔어요");
 			System.out.println("if문 ㅅㅂ = " + product.getChangebgImg());
-			product.setBgImg(product.getChangebgImg());
+			product.setBgImg(realuuidFilename);
 		}
+
 		System.out.println("체인지에왔음");
 
 		System.out.println("product = " + product);
+
 		addminRepository.updata(product);
 
 		return "OK";
