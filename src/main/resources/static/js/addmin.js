@@ -148,7 +148,7 @@ let index = {
 			formData.append('file', $("#file"+data2.id)[0].files[0]);
 			formData.append('file2', $("#file2"+data2.id)[0].files[0]);
 
-if()
+
 //
 //if($("#file"+data2.id)[0].files[0]==undefined){
 //

@@ -20,12 +20,12 @@ public interface AddminRepository {
 	///////////////////////////////////////////////////////////////
 
 	List<Product> productList();
-
 	List<AddminDto> relatedProduct();
 	//////////////////////////////////////////////////
 	public int listdelete(int id);
 	public int listdetete_product_status(int id);
 
 	///////////////////////////////////////////
+	public Product selectUpdate(Product product);
 	public void updata(Product product);
 }

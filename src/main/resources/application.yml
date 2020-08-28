@@ -21,7 +21,7 @@ spring:
   servlet:
     multipart:
       enabled: true
-      max-file-size: 2MB
+      max-file-size: 10MB
   devtools:
     livereload:
       enabled: true
@@ -35,6 +35,7 @@ http:
    force: true
 
 
-
 file:
-  path: C:/src/Springwork/spring-test5/src/main/resources/static/images/
+  path: C:/Users/82105/Desktop/asdf2/spring-test6/src/main/resources/static/images/
+#  C:/src/Springwork/spring-test5/src/main/resources/static/images/
+#집에 경로는 달라서 현재 저걸로햇음 
