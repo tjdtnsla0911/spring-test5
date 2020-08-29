@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<title>Insert title here</title>
+<style>
+
+body {
+	background-color: #FF5A5A
+}
+</style>
+</head>
+<body>
+<button onclick="replay()">새로고침</button><button onclick="related()">관련상품</button><button onclick="back()">상품등록</button>
+
+<script>
+function back(){
+	location.href="/axios";
+}
+function related(){
+location.href="/relatedProducts";
+}
+function replay(){
+	location.href="/list";
+}
+</script>
+
+	<center>
+		<h1>관리자 페이지입니다.</h1>
+		<h2>관리자 테이블</h2>
+
+	</center>
+
+	<div class="container">
+		<p>C R U D</p>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>title</th>
+
+					<th>price</th>
+					<th>disc</th>
+					<th>ad</th>
+					<th>discounted</th>
+					<th>content</th>
+					<th>categoryId</th>
+					<th>bgImg</th>
+					<th>thumb</th>
+					<th>기능</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#productList}}
+				<tr>
+					<td>{{id}} <input type="hidden" id="userid_{{id}}"
+						class="userid" name="userid" value="{{id}}" />
+					</td>
+					<td>{{title}}</td>
+					<td>{{price}}</td>
+					<td>{{disc}}</td>
+					<td>{{ad}}</td>
+					<td>{{discounted}}</td>
+					<td>{{content}}</td>
+					<td>{{categoryId}}</td>
+
+					<td><img src="{{bgImg}}" alt="없다" style="height: 100px"
+						width="100px"/></td>
+							<td><img src="{{thumb}}" alt="없다" style="height: 100px"
+						width="100px"/></td>
+
+					<td>
+						<button class="btn-delete" id="bt-delete-{{id}}"
+							style="WIDTH: 60pt; HEIGHT: 20pt">삭제하기</button> <br />
+						<button type="button" data-toggle="modal"
+							data-target="#myModal{{id}}" style="WIDTH: 60pt; HEIGHT: 20pt">수정하기</button>
+<br/>
+	<form >
+						<div class="modal fade" id="myModal{{id}}" tabindex="-1"
+							role="dialog" aria-labelledby="myModalLabel">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										<h4 class="modal-title" id="myModalLabel">회원 정보 수정을 합시다~</h4>
+									</div>
+									<div class="modal-body">
+
+										<input type="hidden" id="id{{id}}" class="userid"
+											name="userid" value="{{id}}" /> <br /> <br /> title :<input
+											type="text" id="modaltitle{{id}}" class="modaltitle"
+											name="userid" value="{{title}}" /> <br /> <br /> <input
+											type="text" id="modalthumb{{id}}" class="modalthumb"
+											name="userid" value="{{thumb}}" /> <br /> <br /> text :<input
+											type="text" id="modalprice{{id}}" class="modalprice"
+											name="userid" value="{{price}}" /> <br /> <br /> disc : <input
+											type="text" id="modaldisc{{id}}" class="modaldisc"
+											name="userid" value="{{disc}}" /> <br /> <br /> ad : <input
+											type="text" id="modalad{{id}}" class="userid" name="userid"
+											value="{{ad}}" /> <br /> <br /> disCounted : <input
+											type="text" id="modaldiscounted{{id}}" class="userid"
+											name="userid" value="{{discounted}}" /> <br /> <br />
+										content : <input type="text" id="modalcontent{{id}}"
+											class="userid" name="userid" value="{{content}}" /> <br />
+										<br />
+											categoryId : <input type="text"
+											id="modalcategoryId{{id}}" class="userid" name="userid"
+											value="{{categoryId}}" /> <br /> <br /> <input
+											type="hidden" id="modalbgImg{{id}}" class="userid"
+											name="userid" value="{{bgImg}}" /> <br />
+											 bgimg : <input
+											type="file" id="file{{id}}" name="file"/><br />
+										<div class="img_wrap">
+											<img id="test{{id}}" src="{{bgImg}}" style="height: 200px"
+												width="200px" />
+										</div>
+										<br /> <input type="hidden" id="fuck{{id}}" value="null" />
+										<button  type="button"  onclick="javascript:encodeImageFileAsURL({{id}})"
+											id="bt-update-{{id}}">bgimg 바뀐사진보기</button>
+										<br/>
+
+												 thumb : <input
+											type="file" id="file2{{id}}" name="file2"/><br />
+										<div class="img_wrap">
+											<img id="test2{{id}}" src="{{thumb}}" style="height: 200px"
+												width="200px" />
+
+														</div>
+										<br /> <input type="hidden" id="fuck{{id}}" value="null" />
+										<button  type="button"  onclick="javascript:encodeImageFileAsURL2({{id}})"
+											id="bt-update-{{id}}">thumb 바뀐사진보기</button>
+
+									</div>
+									<div class="modal-footer">
+										<input class="btn-update" type="button" id="bt-update-{{id}}"
+											style="WIDTH: 60pt; HEIGHT: 20pt" value="수정하기"/>
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">닫기</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						</form>
+
+
+
+
+
+
+
+					</td>
+				</tr>
+				{{/productList}}
+			</tbody>
+		</table>
+	</div>
+
+	<!-- ----------------모달 -------------------- -->
+
+
+
+
+
+</body>
+
+<script src="/js/addmin.js"></script>
+</html>

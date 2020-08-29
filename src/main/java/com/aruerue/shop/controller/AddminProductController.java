@@ -268,6 +268,7 @@ public class AddminProductController {
 			) throws IOException {
 		System.out.println("좀나와라 ㅅㅂ거");
 		//공통으로쓸곳
+<<<<<<< HEAD:src/main/java/com/aruerue/shop/controller/AddminProductController.java
 		System.out.println("product.getid() ="+product.getId());
 		Product pro = addminRepository.selectUpdate(product.getId());
 		UUID uuid = UUID.randomUUID();
@@ -280,16 +281,33 @@ public class AddminProductController {
 		if(file2==null && file!=null) {//썸네일이 null일때
 			System.out.println("여긴 file2가 null일떄");
 
+=======
+		Product pro = addminRepository.selectUpdate(product);
+		UUID uuid = UUID.randomUUID();
+		UUID uuid2 = UUID.randomUUID();
+		
+		System.out.println("pro = "+pro); //여기서 일단 미리다뽑고
+		
+		System.out.println("파일2 ="+file2);//파일2는 썸네일
+		System.out.println("걍파일 = "+file);//걍파일은 bgImg
+		if(file2==null && file!=null) {
+			System.out.println("여긴 file2가 null일떄");
+			
+>>>>>>> 2c743496351490f7fb962ec05586c0abd4d44fe0:src/main/java/com/aruerue/shop/controller/AddminController.java
 			String uuidBgImg = uuid + "_"+file.getOriginalFilename();
 			Path fileBgImg = Paths.get(fileRealPath + uuidBgImg);
 			Files.write(fileBgImg,file.getBytes());
 			String realBgImg = "/images/"+uuidBgImg;
+<<<<<<< HEAD:src/main/java/com/aruerue/shop/controller/AddminProductController.java
 
 			product.setThumb(pro.getThumb());
+=======
+>>>>>>> 2c743496351490f7fb962ec05586c0abd4d44fe0:src/main/java/com/aruerue/shop/controller/AddminController.java
 			product.setBgImg(realBgImg);
 			addminRepository.updata(product);
 			System.out.println("여긴 file2가 null일떄의 리턴직전");
 			return "OK";
+<<<<<<< HEAD:src/main/java/com/aruerue/shop/controller/AddminProductController.java
 		}else if(file == null&&file2!=null){// bgImg가 null일떄
 			System.out.println("여긴 file이 null일떄");
 			String uuidSubmb = uuid2 + "_"+file2.getOriginalFilename();
@@ -301,11 +319,21 @@ public class AddminProductController {
 			product.setThumb(realSubmb);
 			System.out.println("썸네일쪽 product = "+product);
 
+=======
+		}else if(file == null&&file2!=null){
+			System.out.println("여긴 file이 null일떄");
+			String uuidSubmb = uuid2 + "_"+file2.getOriginalFilename();
+			Path fileThumb = Paths.get(fileRealPath + uuidSubmb);
+			Files.write(fileThumb,file2.getBytes());
+			String realSubmb = "/images/"+uuidSubmb;
+			product.setThumb(realSubmb);
+>>>>>>> 2c743496351490f7fb962ec05586c0abd4d44fe0:src/main/java/com/aruerue/shop/controller/AddminController.java
 			addminRepository.updata(product);
 			System.out.println("여긴 file이 null일떄의 return 직전");
 			return "ok";
 		}else if(file ==null && file2 ==null) {
 			System.out.println("여긴 둘다 null일떄");
+<<<<<<< HEAD:src/main/java/com/aruerue/shop/controller/AddminProductController.java
 
 
 
@@ -314,13 +342,21 @@ public class AddminProductController {
 			addminRepository.updata(product);
 			return "ok";
 
+=======
+			return "ok";
+			
+>>>>>>> 2c743496351490f7fb962ec05586c0abd4d44fe0:src/main/java/com/aruerue/shop/controller/AddminController.java
 		}else {
 			System.out.println("여긴둘다 null 아닐때");
 		System.out.println("썸네일 사진 = "+file2.getOriginalFilename());
 		System.out.println("bgimg : "+file.getOriginalFilename());
 		System.out.println("프로덕트 = "+product);
 		System.out.println("가져온 체인지값 = " + product);
+<<<<<<< HEAD:src/main/java/com/aruerue/shop/controller/AddminProductController.java
 
+=======
+	
+>>>>>>> 2c743496351490f7fb962ec05586c0abd4d44fe0:src/main/java/com/aruerue/shop/controller/AddminController.java
 
 		String uuidBgImg = uuid + "_"+file.getOriginalFilename();
 		String uuidSubmb = uuid2 + "_"+file2.getOriginalFilename();
@@ -352,7 +388,11 @@ public class AddminProductController {
 
 		return "OK";
 		}
+<<<<<<< HEAD:src/main/java/com/aruerue/shop/controller/AddminProductController.java
 
+=======
+	
+>>>>>>> 2c743496351490f7fb962ec05586c0abd4d44fe0:src/main/java/com/aruerue/shop/controller/AddminController.java
 	}
 
 	@GetMapping("/sss")

@@ -59,6 +59,9 @@ on  pro.id = pst.productId and ca.parentTypeId = pro.categoryId
 	discounted = #{discounted} , bgImg =#{bgImg}
 	where id= #{id}
 	</update>
+	<select id="selectUpdate" resultType="com.aruerue.shop.model.product.Product">
+	select * from product where id = #{id}
+	</select>
 
 	<select id="selectUpdate" resultType="com.aruerue.shop.model.product.Product">
 	select * from product where id = #{id}
