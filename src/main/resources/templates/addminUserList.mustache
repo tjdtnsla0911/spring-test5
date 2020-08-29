@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<title>Bootstrap Example</title>
+<body>
+	<button onclick="replay()">새로고침</button>
+	<button onclick="related()">관련상품</button>
+	<button onclick="back()">전체상품</button>
+
+	<script>
+		function replay() {
+			location.href = "/userlist";
+		}
+		function back() {
+			location.href = "/list";
+		}
+		function related() {
+			location.href = "/relatedProducts";
+		}
+	</script>
+
+	<div class="container">
+		<h2>관리자 페이지</h2>
+		<h6>유저 정보를 출력합시다</h6>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>username</th>
+					<th>password</th>
+					<th>email</th>
+					<th>name</th>
+					<th>gender</th>
+					<th>phone</th>
+					<th>address</th>
+					<th>detail_address</th>
+					<th>provider</th>
+					<th>providerId</th>
+					<th>total_amount</th>
+					<th>role</th>
+					<th>profile</th>
+					<th>createDate</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#addminUserList}}
+				<tr class="info">
+					<td>{{id}}</td>
+					<td>{{username}}</td>
+					<td>{{password}}</td>
+					<td>{{email}}</td>
+					<td>{{name}}</td>
+					<td>{{gender}}</td>
+					<td>{{phone}}</td>
+					<td>{{address}}</td>
+					<td>{{detail_address}}</td>
+					<td>{{provider}}</td>
+					<td>{{providerId}}</td>
+					<td>{{total_amount}}</td>
+					<td>{{role}}</td>
+					<td colspan="2"><img src="{{profile}}" alt="가입사진이 없습니다" style="height: 70px" width="80px" /></td>
+					<td>{{createDate}}</td>
+					<td><button class="btn-delete" id="bt-delete-{{id}}" style="WIDTH: 60pt; HEIGHT: 20pt">삭제하기</button> <br />
+						<button type="button" data-toggle="modal" data-target="#myModal{{id}}" style="WIDTH: 60pt; HEIGHT: 20pt">수정하기</button></td>
+				<form>
+
+			<div class="modal fade" id="myModal{{id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">회원 정보 수정을 합시다~</h4>
+						</div>
+						<div class="modal-body">
+
+
+							 <br /> <br />
+							username :<input type="text"
+								id="modalUsername{{id}}" class="modalUsername" name="modalUsername" value="{{username}}" /> <br /> <br />
+
+
+
+
+
+								email : <input type="email" id="modalEmail{{id}}" class="modalEmail" name="modalEmail"
+								value="{{email}}" /> <br /> <br />
+
+								name : <input type="text" id="modalName{{id}}" class="modalName" name="modalName" value="{{name}}" /> <br /> <br />
+
+							gender : <input type="text" id="modalGender{{id}}" class="modalGender" name="modalGender" value="{{gender}}" /> <br /> <br />
+
+							phone : <input
+								type="text" id="modalPhone{{id}}" class="modalPhone" name="modalPhone" value="{{phone}}" /> <br /> <br />
+
+							address : <input
+								type="text" id="modalAddress{{id}}" class="modalAddress" name="modalAddress" value="{{address}}" /> <br /> <br />
+
+							detail_address : <input
+								type="text" id="modalDetail_address{{id}}" class="modalDetail_address" name="modalDetail_address" value="{{detail_address}}" /> <br /> <br />
+					<!-------------------------------------------------- 히든영역 ------------------------------------------------------------------>
+								<input type="hidden" id="modalPassword{{id}}" class="modalPassword" value="{{password}}"/>
+
+								<input type="hidden"
+								id="modalProvider{{id}}" class="modalProvider" name="modalProvider" value="{{provider}}" />
+
+								<input type="hidden"
+								id="modalProviderId{{id}}" class="modalProviderId" name="modalProviderId" value="{{providerId}}" />
+
+								<input type="hidden" id="id{{id}}" class="id" name="id" value="{{id}}" />
+
+
+								<input type="hidden"
+								id="modalCreateDate{{id}}" class="modalCreateDate" name="modalCreateDate" value="{{createDate}}" />
+
+								<input type="hidden"
+								id="modalBirthday{{id}}" class="modalBirthday" name="modalBirthday" value="{{birthday}}" />
+					<!-- -------------------------------------------------------------------------------------------------------------------------- -->
+
+
+								total_amount : <input type="text"
+								id="modalTotal_amount{{id}}" class="modalTotal_amount" name="modalTotal_amount" value="{{total_amount}}" /> <br /> <br />
+
+								role : <input type="text"
+								id="modalRole{{id}}" class="modalRole" name="modalRole" value="{{role}}" /> <br /> <br />
+
+
+
+
+								profile : <input type="file"
+								id="modalProfile{{id}}" class="modalProfile" name="modalProfile"  /> <br /> <br />
+
+								<div class="img_wrap">
+
+								<img id="modalProfileImg{{id}}" class="modalProfileImg" name="modalProfileImg" src="{{profile}}"
+								style="height: 200px" alt="사진이없습니다."  width="200px" />
+
+								</div>
+
+
+					<br />
+
+
+						</div>
+						<div class="modal-footer">
+							<input class="btn-update" type="button" id="bt-update-{{id}}" style="WIDTH: 60pt; HEIGHT: 20pt" value="수정하기" />
+							<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</form>
+
+				</tr>
+					{{/addminUserList}}
+			</tbody>
+		</table>
+
+
+		<!------------------- 여기서부터 modal  ------------------->
+	</div>
+
+</body>
+<script>
+
+var sel_file;
+
+$(document).ready(function() {
+	$(".modalProfile").on("change", handleImgFileSelect);
+});
+console.log('file의 값 = ',$(".modalProfile").val());
+
+function handleImgFileSelect(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			return;
+		}
+
+		sel_file = f;
+
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$(".modalProfileImg").attr("src", e.target.result);
+		}
+		reader.readAsDataURL(f);
+	});
+}
+
+</script>
+<script src="/js/addminUserList.js"></script>
+</html>

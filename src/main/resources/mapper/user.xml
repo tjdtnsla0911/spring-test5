@@ -46,9 +46,12 @@
 	</select>
 
 
-	<update id="updateUser"
-		parameterType="com.aruerue.shop.model.user.User">
-		UPDATE user SET password = #{password} where id=#{id}
+	<update id="updateUser">
+		UPDATE user SET username =#{username} , email =#{email}
+		, name=#{name}, gender =#{gender}, phone = #{phone}
+		, address= #{address} , detail_address =#{detail_address}
+		,total_amount =#{total_amount},role=#{role},profile=#{profile}
+		where id=#{id}
 	</update>
 
 	<delete id="deleteUser" parameterType="int">

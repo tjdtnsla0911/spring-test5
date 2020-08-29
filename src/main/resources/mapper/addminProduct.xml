@@ -60,6 +60,10 @@ on  pro.id = pst.productId and ca.parentTypeId = pro.categoryId
 	where id= #{id}
 	</update>
 
+	<select id="selectUpdate" resultType="com.aruerue.shop.model.product.Product">
+	select * from product where id = #{id}
+	</select>
+
 
 <select id="relatedProduct" resultType="com.aruerue.shop.addminDto.AddminDto">
 select pro.title,pro.thumb,pro.price,pro.disc,pro.discounted,pro.content,pro.categoryId,pro.bgImg,pst.sale,pst.newly,pst.best,rel.parentProductId,rel.relatedProductId,ca.parentTypeId

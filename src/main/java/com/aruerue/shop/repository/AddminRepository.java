@@ -28,4 +28,8 @@ public interface AddminRepository {
 
 	///////////////////////////////////////////
 	public void updata(Product product);
+	public Product selectUpdate(int id);
+
+	/////////////////////////////////////
+
 }

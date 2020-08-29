@@ -28,7 +28,7 @@
 	}
 </script>
 
-<body>
+<body onload="init();">
 
 	<h1>관리자 페이지입니다.</h1>
 	<form method="post" action="/crud" enctype="multipart/form-data">
@@ -49,7 +49,7 @@
 
 			<img id="test2" src="" style="height: 200px" width="200px" />
 		</div>
-		<button type="button" onclick="javascript:encodeImageFileAsURLs()">썸네일 사진미리보기</button>
+
 		<br />
 			 bgImg
 		: <input type="file" id="file" name="file" /><br />
@@ -60,18 +60,51 @@
 
 		<br />
 
-		<br /> 관련상품(부모): <select id="parentProductId" name="parentProductId">
+		<br /> 관련상품(부모): <select id="parentProductId" name="parentProductId" class="parentProductId">
 			<option value="0">관련상품없음</option>
-			<option value="1">관련상품있음</option>
+			<option class="hide" value="1">관련상품있음</option>
 
 
-		</select> 관련상품(자식) : <select id="relateProductId" name="relateProductId">
+		</select> <br/><span>관련상품(자식): </span> <select id="relateProductId" name="relateProductId" class="relateProductId">
 			<option value="0">관련상품없음</option> {{#list}}
 			<option value="{{id}}">{{title}}</option> {{/list}}
 
 		</select> <br /> <br /> <br /> <br /> <input type="submit" value="전송합니다">
-		</button>
+
 	</form>
+<script>
+
+function init(){
+	$(".relateProductId").hide();
+	$("span").hide();
+}
+
+$(document).ready(function(){
+	if(this.value==0){
+		  $(".relateProductId").hide();
+			$("span").hide();
+
+	  }
+  $(".parentProductId").click(function(){
+
+	  console.log(this.value);
+	  if(this.value==0){
+		  $(".relateProductId").hide();
+	  }
+   // $(".relateProductId").hide();
+  });
+  $(".parentProductId").click(function(){
+	  if(this.value==1){
+		  $("span").show();
+		    $(".relateProductId").show();
+	  }
+
+  });
+});
+
+
+</script>
+
 
 	<script>
 		function encodeImageFileAsURLs() {
@@ -99,6 +132,66 @@
 		}
 	</script>
 	<script src="/js/addmin.js"></script>
+
+	<script>
+var sel_file;
+
+$(document).ready(function() {
+	$("#file").on("change", handleImgFileSelect);
+});
+console.log('file의 값 = ',$("#file").val());
+
+function handleImgFileSelect(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			return;
+		}
+
+		sel_file = f;
+
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$("#test").attr("src", e.target.result);
+		}
+		reader.readAsDataURL(f);
+	});
+}
+
+
+
+
+
+var sel_file2;
+
+$(document).ready(function() {
+	$("#file2").on("change", handleImgFileSelect2);
+});
+console.log('파일2의값 = ',$("#file2").val());
+
+function handleImgFileSelect2(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			return;
+		}
+
+		sel_file2 = f;
+
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$("#test2").attr("src", e.target.result);
+		}
+		reader.readAsDataURL(f);
+	});
+}
+</script>
 
 </body>
 

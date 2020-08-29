@@ -49,7 +49,7 @@ import com.aruerue.shop.repository.AddminRepository;
 
 @Controller
 //@MultipartConfig(maxFileSize=1024*1024*2,location = "c:\\upload")
-public class AddminController {
+public class AddminProductController {
 
 
 	@Value("${file.path}")
@@ -149,7 +149,7 @@ public class AddminController {
 	@PostMapping("/crud")
 	public  String crud(@RequestParam("file") MultipartFile file,@RequestParam("file2") MultipartFile file2,@ModelAttribute AddminDto addminDto) throws IOException {
 
-
+		//file 2가 썸네일입니다..
 		System.out.println("일단 crud에 왔습니다");
 		System.out.println("file1의 이름 = "+file.getOriginalFilename());
 		System.out.println("file2의 이름 = "+file2.getOriginalFilename());
@@ -161,8 +161,8 @@ public class AddminController {
 
 	System.out.println("썸네일 = "+thumb);
 	System.out.println("bgimg = "+bgimg);
-		Path filePath = Paths.get(fileRealPath + thumb);
-		Path filePath2 = Paths.get(fileRealPath + bgimg);
+		Path filePath2 = Paths.get(fileRealPath + thumb);
+		Path filePath = Paths.get(fileRealPath + bgimg);
 		System.out.println("filePath 원조 ="+filePath);
 		System.out.println("filePath = "+fileRealPath);
 		System.out.println("파일.겟바이트는 뭔가 ? = "+file.getBytes());
@@ -267,20 +267,63 @@ public class AddminController {
 			@ModelAttribute Product product
 			) throws IOException {
 		System.out.println("좀나와라 ㅅㅂ거");
-		if(file2.getOriginalFilename()==null||file2.getOriginalFilename()=="") {
-			
-			
-		}
-		System.out.println("썸네일 사진 = "+file2.getOriginalFilename());
-		System.out.println("bgimg : "+file.getOriginalFilename());
-		System.out.println("프로덕트 = "+product);
-
-		System.out.println("가져온 체인지값 = " + product);
+		//공통으로쓸곳
+		System.out.println("product.getid() ="+product.getId());
+		Product pro = addminRepository.selectUpdate(product.getId());
 		UUID uuid = UUID.randomUUID();
 		UUID uuid2 = UUID.randomUUID();
 
+		//System.out.println("pro = "+pro); //여기서 일단 미리다뽑고
+
+		System.out.println("썸네일  ="+file2);//파일2는 썸네일
+		System.out.println("bgImg = "+file);//걍파일은 bgImg
+		if(file2==null && file!=null) {//썸네일이 null일때
+			System.out.println("여긴 file2가 null일떄");
+
+			String uuidBgImg = uuid + "_"+file.getOriginalFilename();
+			Path fileBgImg = Paths.get(fileRealPath + uuidBgImg);
+			Files.write(fileBgImg,file.getBytes());
+			String realBgImg = "/images/"+uuidBgImg;
+
+			product.setThumb(pro.getThumb());
+			product.setBgImg(realBgImg);
+			addminRepository.updata(product);
+			System.out.println("여긴 file2가 null일떄의 리턴직전");
+			return "OK";
+		}else if(file == null&&file2!=null){// bgImg가 null일떄
+			System.out.println("여긴 file이 null일떄");
+			String uuidSubmb = uuid2 + "_"+file2.getOriginalFilename();
+			System.out.println("썸네일의 사진이름은 ? ="+file2.getOriginalFilename());
+			Path fileThumb = Paths.get(fileRealPath + uuidSubmb);
+			Files.write(fileThumb,file2.getBytes());
+			String realSubmb = "/images/"+uuidSubmb;
+			product.setBgImg(pro.getBgImg());
+			product.setThumb(realSubmb);
+			System.out.println("썸네일쪽 product = "+product);
+
+			addminRepository.updata(product);
+			System.out.println("여긴 file이 null일떄의 return 직전");
+			return "ok";
+		}else if(file ==null && file2 ==null) {
+			System.out.println("여긴 둘다 null일떄");
+
+
+
+			product.setThumb(pro.getThumb());
+			product.setBgImg(pro.getBgImg());
+			addminRepository.updata(product);
+			return "ok";
+
+		}else {
+			System.out.println("여긴둘다 null 아닐때");
+		System.out.println("썸네일 사진 = "+file2.getOriginalFilename());
+		System.out.println("bgimg : "+file.getOriginalFilename());
+		System.out.println("프로덕트 = "+product);
+		System.out.println("가져온 체인지값 = " + product);
+
+
 		String uuidBgImg = uuid + "_"+file.getOriginalFilename();
-		String uuidSubmb = uuid + "_"+file2.getOriginalFilename();
+		String uuidSubmb = uuid2 + "_"+file2.getOriginalFilename();
 		Path fileBgImg = Paths.get(fileRealPath + uuidBgImg);
 		Path fileThumb = Paths.get(fileRealPath + uuidSubmb);
 
@@ -296,7 +339,7 @@ public class AddminController {
 
 	//	if (product.getChangebgImg().equals("null")||product.getChangebgImg()==null) {
 			System.out.println("if문에 왔어요");
-	
+
 			product.setBgImg(realBgImg);
 			product.setThumb(realSubmb);
 		//}
@@ -308,6 +351,7 @@ public class AddminController {
 		addminRepository.updata(product);
 
 		return "OK";
+		}
 
 	}
 

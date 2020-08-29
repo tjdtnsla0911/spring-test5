@@ -13,7 +13,6 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 <style>
-
 body {
 	background-color: #FF5A5A
 }
@@ -121,28 +120,27 @@ function replay(){
 											value="{{categoryId}}" /> <br /> <br /> <input
 											type="hidden" id="modalbgImg{{id}}" class="userid"
 											name="userid" value="{{bgImg}}" /> <br />
+
 											 bgimg : <input
-											type="file" id="file{{id}}" name="file"/><br />
+											type="file" id="file{{id}}" name="file" class="file"/><br />
 										<div class="img_wrap">
-											<img id="test{{id}}" src="{{bgImg}}" style="height: 200px"
+
+											<img id="test{{id}}" class="test" src="{{bgImg}}" style="height: 200px"
 												width="200px" />
+
 										</div>
+
 										<br /> <input type="hidden" id="fuck{{id}}" value="null" />
-										<button  type="button"  onclick="javascript:encodeImageFileAsURL({{id}})"
-											id="bt-update-{{id}}">bgimg 바뀐사진보기</button>
-										<br/>
 
 												 thumb : <input
-											type="file" id="file2{{id}}" name="file2"/><br />
-										<div class="img_wrap">
-											<img id="test2{{id}}" src="{{thumb}}" style="height: 200px"
+											type="file" id="file2{{id}}" name="file2" class="file2"/><br />
+										<div class="img_wrap2">
+	<img id="test2{{id}}" class="test2" src="{{thumb}}" style="height: 200px"
 												width="200px" />
+										</div>
 
-														</div>
 										<br /> <input type="hidden" id="fuck{{id}}" value="null" />
-										<button  type="button"  onclick="javascript:encodeImageFileAsURL2({{id}})"
-											id="bt-update-{{id}}">thumb 바뀐사진보기</button>
-
+										
 									</div>
 									<div class="modal-footer">
 										<input class="btn-update" type="button" id="bt-update-{{id}}"
@@ -169,6 +167,69 @@ function replay(){
 	</div>
 
 	<!-- ----------------모달 -------------------- -->
+
+<script>
+var sel_file;
+
+$(document).ready(function() {
+	$(".file").on("change", handleImgFileSelect);
+});
+console.log('file의 값 = ',$(".file").val());
+
+function handleImgFileSelect(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			return;
+		}
+
+		sel_file = f;
+
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$(".test").attr("src", e.target.result);
+		}
+		reader.readAsDataURL(f);
+	});
+}
+
+
+
+
+
+var sel_file2;
+
+$(document).ready(function() {
+	$(".file2").on("change", handleImgFileSelect2);
+});
+console.log('파일2의값 = ',$(".file2").val());
+
+function handleImgFileSelect2(e) {
+	var files = e.target.files;
+	var filesArr = Array.prototype.slice.call(files);
+
+	filesArr.forEach(function(f) {
+		if (!f.type.match("image.*")) {
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			return;
+		}
+
+		sel_file2 = f;
+
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$(".test2").attr("src", e.target.result);
+		}
+		reader.readAsDataURL(f);
+	});
+}
+
+
+
+</script>
 
 
 
